@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
+    'folders',
+    'notes',
 ]
 
 MIDDLEWARE = [
@@ -48,13 +51,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-ROOT_URLCONF = 'reliz_proect_uzas.urls'
+ROOT_URLCONF = 'project_yaa123122.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,7 +68,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'reliz_proect_uzas.wsgi.application'
+WSGI_APPLICATION = 'project_yaa123122.wsgi.application'
+ASGI_APPLICATION = 'project_yaa123122.asgi.application'
 
 
 # Database
@@ -97,7 +100,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
