@@ -4,5 +4,6 @@ from . import views
 app_name = 'folders'
 
 urlpatterns = [
-    # Add your URL patterns here
+    path('', views.folder_list, name='list'),
+    path('create/', views.create_folder, name='create'),
 ]

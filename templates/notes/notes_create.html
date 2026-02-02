@@ -1,14 +1,12 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная</title>
+    <title>Создать заметку</title>
 </head>
-
 <body>
     <header class="header">
         <nav class ="nav">
@@ -18,11 +16,17 @@
             <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>
         </nav>
     </header>
-    <main>
-        <a href="https://youtu.be/RtudL2N8vsg?si=C5UJ7fcDWVey72gw">
-            <img class="img" src="https://i.pinimg.com/736x/e8/23/e0/e823e08eb26ea8cdb30f4174bebcebc7.jpg">
-        </a>
+    <main class = 'main3'>
+        <h1>Создать заметку</h1>
+        <form method="post" class = 'form1'>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Создать</button>
+        </form>
+        <div class = 'papasha'>
+            <p>У вас нет папок?</p> <a href="{% url 'folders:create' %}">Создайте папку</a>
+        </div> 
+        <p><a href="{% url 'notes:notes_list' %}">Вернуться к списку заметок</a></p>
     </main>
 </body>
-
 </html>

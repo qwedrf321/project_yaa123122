@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Папки</title>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a class="nav_a" href="{% url 'notes:home' %}">Главная</a> |
+            <a class="nav_a" href="{% url 'notes:notes_list' %}">Список заметок</a> |
+            <a class="nav_a" href="{% url 'notes:create' %}">Создать заметку</a> |
+            <a class="nav_a" href="{% url 'folders:list' %}">Папки</a>
+        </nav>
+    </header>
+    <main class="main3">
+        <h1>Мои папки</h1>
+        
+        <a href="{% url 'folders:create' %}">Создать новую папку</a>
+        
+        {% if folders %}
+            <ul>
+                {% for folder in folders %}
+                    <li>{{ folder.name }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>У вас еще нет папок. <a href="{% url 'folders:create' %}">Создайте первую папку</a></p>
+        {% endif %}
+    </main>
+</body>
+</html>

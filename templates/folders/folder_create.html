@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создать папку</title>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a class="nav_a" href="{% url 'notes:home' %}">Главная</a> |
+            <a class="nav_a" href="{% url 'notes:notes_list' %}">Список заметок</a> |
+            <a class="nav_a" href="{% url 'notes:create' %}">Создать заметку</a> |
+            <a class="nav_a" href="{% url 'folders:list' %}">Папки</a>
+        </nav>
+    </header>
+    <main class="main3">
+        <h1>Создать папку</h1>
+        
+        <form method="post">
+            {% csrf_token %}
+            <label for="name">Название папки:</label><br>
+            <input type="text" id="name" name="name" required><br><br>
+            <button type="submit">Создать папку</button>
+        </form>
+        
+        <p><a href="{% url 'folders:list' %}">Вернуться к папкам</a></p>
+    </main>
+</body>
+</html>

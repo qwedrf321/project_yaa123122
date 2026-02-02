@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои Заметки</title>
+</head>
+<body>
+    <header class="header">
+        <nav class ="nav">
+            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> |
+            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> |
+            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> |
+            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>
+        </nav>
+    </header>
+    <div class="cont">
+        <h1>📝 Мои Заметки</h1>
+        {% if notes %}
+            <div class="notes">
+                {% for note in notes %}
+                    <div class="note-card">
+                        <h3>{{ note.title }}</h3>
+                        <p class="note-content">{{ note.content|truncatewords:30 }}</p>
+                        <div class="note-folder">
+                            📁 {{ note.folder.name }}
+                        </div>
+                        <div class="note-meta">
+                            <div class="note-owner">👤 {{ note.owner.username }}</div>
+                            <div>📅 {{ note.created_at|date:"d.m.Y H:i" }}</div>
+                            
+                            {% if note.is_public %}
+                                <span class="note-badge">🌐 Публічна</span>
+                            {% else %}
+                                <span class="note-badge badge-private">🔒 Приватна</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-message">
+                Заметки не найдены. <a href="{% url 'notes:create' %}" style="color: #FFD700;">Создайте первую заметку</a>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

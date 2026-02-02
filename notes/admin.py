@@ -7,6 +7,7 @@ class NoteAdmin(admin.ModelAdmin):
     list_filter = ('is_public', 'created_at', 'folder', 'owner')
     search_fields = ('title', 'content')
     readonly_fields = ('created_at', 'updated_at')
+    raw_id_fields = ('owner', 'folder')
 
     fieldsets = (
         ('Основна інформація', {
