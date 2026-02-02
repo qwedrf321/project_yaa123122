@@ -106,9 +106,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kyiv'
 
 USE_I18N = True
 
