@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ note.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a class='nav_a' href="{% url 'notes:home' %}">Главная</a> |
+            <a class='nav_a' href="{% url 'notes:notes_list' %}">Список заметок</a> |
+            <a class='nav_a' href="{% url 'notes:create' %}">Создать заметку</a> |
+            <a class='nav_a' href="{% url 'folders:list' %}">Папки</a>
+
+        </nav>
+    </header>
+    <main class='main_detail'>
+        <div class="cont1">
+            <h1>{{ note.title }}</h1>
+            <div class="note_conetnt1">
+                <p>{{ note.content }}</p>
+            </div>
+            <p>📁 Папка: {{ note.folder.name }}</p>
+            <p>👤 Автор: {{ note.owner.username }}</p>
+            <p>📅 Создано: {{ note.created_at|date:"d.m.Y H:i" }}</p>
+            {% if note.is_public %}
+            <span>🌐 Публичная</span>
+            {% else %}
+            <span>🔒 Приватная</span>
+            {% endif %}
+            <form action="{% url 'notes:delete_note' note.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Удалить</button>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>
