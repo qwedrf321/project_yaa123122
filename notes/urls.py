@@ -4,9 +4,9 @@ from . import views
 app_name = 'notes'
 
 urlpatterns = [
-    path('', views.index, name='home'),
-    path('list/', views.notes_list, name='notes_list'),
-    path('create/', views.note_create, name='create'),
-    path("note/<int:pk>/", views.note_detail, name="detail"),
-    path('note/<int:pk>/delete/', views.delete_note, name='delete_note'),
+    path('', views.IndexView.as_view(), name='home'),
+    path('list/', views.NotesListView.as_view(), name='notes_list'),
+    path('create/', views.NoteCreateView.as_view(), name='create'),
+    path("note/<int:pk>/", views.NoteDetailView.as_view(), name="detail"),
+    path('note/<int:pk>/delete/', views.NoteDeleteView.as_view(), name='delete_note'),
 ]

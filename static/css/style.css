@@ -105,6 +105,8 @@ main {
     gap: 20px;
     width: 100%;
     max-width: 1200px;
+    align-items: center;
+    justify-content: center;
 }
 
 .papasha{
@@ -179,4 +181,8 @@ main {
     justify-content: center;
     align-items: center;
     width: 100%;
+}
+
+.main_login{
+    background-color: #b16969;
 }

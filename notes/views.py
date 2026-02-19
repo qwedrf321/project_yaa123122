@@ -1,39 +1,42 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse_lazy
 from .models import Note
 from .forms import NoteForm
 
-def index(request):
-    return render(request, 'index.html')
+class IndexView(TemplateView):
+    template_name = 'index.html'
 
-def notes_list(request):
-    notes_all = Note.objects.all().order_by('-created_at')
-    paginator = Paginator(notes_all, 3) 
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, 'notes/notes_list.html', {'page_obj': page_obj})
+class NotesListView(ListView):
+    model = Note
+    template_name = 'notes/notes_list.html'
+    paginate_by = 3
+    ordering = ['-created_at']
 
-def note_detail(request, pk):
-    note = get_object_or_404(Note, pk=pk)
-    return render(request, "notes/note_detail.html", {"note": note})
+class NoteDetailView(DetailView):
+    model = Note
+    template_name = 'notes/note_detail.html'
+    context_object_name = 'note'
 
-@login_required
-def note_create(request):
-    if request.method == 'POST':
-        form = NoteForm(request.user, request.POST)
-        if form.is_valid():
-            note = form.save(commit=False)
-            note.owner = request.user
-            note.save()
-            return redirect('notes:notes_list')
-    else:
-        form = NoteForm(user=request.user)
-    return render(request, 'notes/notes_create.html', {'form': form})
+class NoteCreateView(LoginRequiredMixin, CreateView):
+    model = Note
+    form_class = NoteForm
+    template_name = 'notes/notes_create.html'
+    success_url = reverse_lazy('notes:notes_list')
 
-@login_required 
-def delete_note(request, pk):
-    note = get_object_or_404(Note, id=pk)
-    if note.owner == request.user:
-        note.delete()
-    return redirect('notes:notes_list')
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+class NoteDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Note
+    success_url = reverse_lazy('notes:notes_list')
+
+    def test_func(self):
+        note = self.get_object()
+        return note.owner == self.request.user
