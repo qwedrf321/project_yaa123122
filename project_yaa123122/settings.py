@@ -40,7 +40,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'project_yaa123122.urls'  # ВАЖЛИВО: має бути ваша назва проєкту!
+ROOT_URLCONF = 'project_yaa123122.urls'  
 
 TEMPLATES = [
     {
