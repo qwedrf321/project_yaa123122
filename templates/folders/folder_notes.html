@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <title>Заметки в папке {{ folder.name }}</title>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="{% url 'notes:home' %}">Главная</a> |
+            <a href="{% url 'folders:list' %}">Назад к папкам</a>
+        </nav>
+    </header>
+
+    <main class="main3">
+        <h1>Заметки в папке: {{ folder.name }}</h1>
+        <ul>
+            {% for note in notes %}
+                <li>
+                    <strong>{{ note.title }}</strong><br>
+                    {{ note.content|truncatewords:10 }}
+                </li>
+            {% empty %}
+                <li>В этой папке пока нет заметок.</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'folders:list' %}">Вернуться к списку папок</a>
+    </main>
+</body>
+</html>
