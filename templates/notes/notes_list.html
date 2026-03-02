@@ -11,12 +11,12 @@
 
 <body>
     <header class="header">
-        <nav class="nav">
-            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> |
-            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> |
-            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> |
-            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>|
-            <a class='nav_a' href="{% url 'login' %}">Логин</a>
+        <nav class ="nav">
+            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> 
+            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> 
+            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> 
+            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>
+            <a class='nav_a' href="{% url 'login' %}" style="margin-left: auto; margin-right: 20px;">Логин</a>
         </nav>
     </header>
     <div class="cont">
@@ -52,7 +52,7 @@
         </div>
         {% else %}
         <div class="empty-message">
-            Заметки не найдены. <a href="{% url 'notes:create' %}" style="color: #FFD700;">Создайте первую заметку</a>
+            Заметки не найдены. <a href="{% url 'notes:create' %}">Создайте первую заметку</a>
         </div>
         {% endif %}
 
@@ -71,6 +71,7 @@
         </div>
 
     </div>
+    <p><br></p>
 </body>
 
 </html>

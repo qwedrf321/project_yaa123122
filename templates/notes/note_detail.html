@@ -4,39 +4,46 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ note.title }}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
     <header class="header">
-        <nav class="nav">
-            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> |
-            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> |
-            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> |
-            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>|
-            <a class='nav_a' href="{% url 'login' %}">Логин</a>
-
+        <nav class ="nav">
+            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> 
+            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> 
+            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> 
+            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>
+            <a class='nav_a' href="{% url 'login' %}" style="margin-left: auto; margin-right: 20px;">Логин</a>
         </nav>
     </header>
-    <main class='main_detail'>
-        <div class="cont1">
+    <main class='main_detail cont'>
+        <div class="note-detail">
             <h1>{{ note.title }}</h1>
-            <div class="note_conetnt1">
-                <p>{{ note.content }}</p>
+            <div class="note-detail-meta">
+                <p><strong>📁 Папка:</strong> {{ note.folder.name }}</p>
+                <p><strong>👤 Автор:</strong> {{ note.owner.username }}</p>
+                <p><strong>📅 Создано:</strong> {{ note.created_at|date:"d.m.Y H:i" }}</p>
+                <p><strong>Статус:</strong> 
+                    {% if note.is_public %}
+                    <span class="note-badge" style="display: inline-block;">🌐 Публичная</span>
+                    {% else %}
+                    <span class="note-badge badge-private" style="display: inline-block;">🔒 Приватная</span>
+                    {% endif %}
+                </p>
             </div>
-            <p>📁 Папка: {{ note.folder.name }}</p>
-            <p>👤 Автор: {{ note.owner.username }}</p>
-            <p>📅 Создано: {{ note.created_at|date:"d.m.Y H:i" }}</p>
-            {% if note.is_public %}
-            <span>🌐 Публичная</span>
-            {% else %}
-            <span>🔒 Приватная</span>
-            {% endif %}
-            <form action="{% url 'notes:delete_note' note.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit">Удалить</button>
-            </form>
+            <div class="note-detail-content">
+                {{ note.content }}
+            </div>
+            <div class="note-actions">
+                <a href="{% url 'notes:notes_list' %}">← Назад к списку</a>
+                <form action="{% url 'notes:delete_note' note.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background-color: #8B3A3A;" onclick="return confirm('Вы уверены, что хотите удалить эту заметку?')">🗑️ Удалить</button>
+                </form>
+            </div>
         </div>
     </main>
 </body>

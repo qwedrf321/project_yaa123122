@@ -1,16 +1,18 @@
 body {
-    background-color: #b16969;
+    background-color: #5a766a;
     display: flex;
     flex-direction: column;
+    color: #2D5A4E;
 }
 
 .header {
-    background-color: #5d5399;
+    background-color: #1B4D3E;
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    box-shadow: 0 2px 5px rgba(27, 77, 62, 0.2);
 }
 
 .img {
@@ -29,13 +31,14 @@ body {
 }
 
 a {
-    color:black;
+    color: #4bdaaf;
     text-decoration: none;
+    transition: color 0.3s;
 }
 
 a:hover {
     text-decoration: underline;
-    color:rgb(177, 177, 177);
+    color: #2D5A4E;
 }
 
 main {
@@ -64,7 +67,7 @@ main {
 }
 .cont1{
     display: flex;
-    background-color: rgb(80, 192, 76);
+    background-color: white;
     margin-top: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -72,14 +75,19 @@ main {
     align-items: center;
     width: 80%;
     gap:20px;
+    border-left: 5px solid #1B4D3E;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(27, 77, 62, 0.1);
 }
 
 .note_conetnt{
     padding: 20px;
     width: 100%;
     max-width: 800px;
-    background-color: aquamarine;
+    background-color: #E8F4EF;
     text-align: center;
+    border-radius: 5px;
+    border-left: 4px solid #1B4D3E;
 }
 
 .form1{
@@ -87,6 +95,40 @@ main {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    gap: 20px;
+}
+
+.form1 input, .form1 textarea, .form1 select {
+    padding: 12px;
+    border: 2px solid #E8F4EF;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    max-width: 400px;
+    transition: border-color 0.3s;
+}
+
+.form1 input:focus, .form1 textarea:focus, .form1 select:focus {
+    outline: none;
+    border-color: #1B4D3E;
+    background-color: #f8faf7;
+}
+
+.form1 button {
+    padding: 12px 30px;
+    background-color: #1B4D3E;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.form1 button:hover {
+    background-color: #2D5A4E;
 }
 .empty-message {
     text-align: center;
@@ -96,38 +138,38 @@ main {
     flex-direction: column;
     gap:20px;
     font-size: 1.2em;
-    color: #555;
+    color: #1B4D3E;
 }
 
 .notes {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    width: 100%;
+    display: grid;  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 30px; 
+    width: 90%; 
     max-width: 1200px;
-    align-items: center;
-    justify-content: center;
+    margin: 0 auto; 
 }
 
+.note-card {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    height: 350px; 
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(27, 77, 62, 0.15);
+    border-top: 4px solid #1B4D3E;
+    border-radius: 5px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.note-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(27, 77, 62, 0.2);
+}
 .papasha{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-.note-card{
-    background-color: aliceblue;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 300px;
-    padding: 20px;
-    max-width: 300px;
-    width: 300px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .note-header{
@@ -176,7 +218,9 @@ main {
     align-items: center;
     text-align: justify;
     text-indent: 20px;
-    background-color: aquamarine;
+    background-color: #E8F4EF;
+    border-radius: 5px;
+    border-left: 4px solid #1B4D3E;
 }
 
 .main_detail{
@@ -186,6 +230,368 @@ main {
     width: 100%;
 }
 
-.main_login{
-    background-color: #b16969;
+.main_login {
+    background-color: #8ebaa6;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(27, 77, 62, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login_container h2 {
+    color: #1B4D3E;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+.login_form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login_form p {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+}
+
+.login_form label {
+    color: #2D5A4E;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.login_form input {
+    padding: 12px;
+    border: 2px solid #E8F4EF;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.login_form input:focus {
+    outline: none;
+    border-color: #1B4D3E;
+    background-color: #f8faf7;
+}
+
+.login_btn {
+    padding: 12px;
+    background-color: #1B4D3E;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.login_btn:hover {
+    background-color: #2D5A4E;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #1B4D3E;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 32px;
+    border-bottom: 3px solid #1B4D3E;
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+main {
+    background-color: #8ebaa6;
+    min-height: 100vh;
+}
+
+.main_index {
+    background-color: #8ebaa6;
+}
+
+.main3 {
+    background-color: #8ebaa6;
+    min-height: 100vh;
+}
+
+.cont {
+    background-color: #8ebaa6;
+}
+
+button {
+    padding: 12px 20px;
+    background-color: #1B4D3E;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2D5A4E;
+}
+
+ul, ol {
+    color: #2D5A4E;
+    list-style-position: inside;
+}
+
+li {
+    margin: 10px 0;
+    padding: 10px;
+}
+
+li a {
+    color: #1B4D3E;
+    font-weight: bold;
+}
+
+li a:hover {
+    color: #2D5A4E;
+    text-decoration: underline;
+}
+
+.note-header {
+    color: #1B4D3E;
+}
+
+.note-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.note-header a {
+    color: #1B4D3E;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.note-header a:hover {
+    color: #2D5A4E;
+    text-decoration: underline;
+}
+
+.note-content {
+    color: #2D5A4E;
+    font-size: 14px;
+}
+
+.note-folder {
+    color: #1B4D3E;
+    font-weight: bold;
+}
+
+.note-owner, .note-badge {
+    color: #2D5A4E;
+    font-size: 13px;
+}
+
+.note-badge {
+    padding: 5px 10px;
+    background-color: #E8F4EF;
+    border-radius: 3px;
+    margin-top: 5px;
+}
+
+.badge-private {
+    background-color: #FFE8E8;
+    color: #8B3A3A;
+}
+
+.papasha {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(27, 77, 62, 0.1);
+    margin-top: 20px;
+}
+
+.papasha a {
+    color: #1B4D3E;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.papasha a:hover {
+    color: #2D5A4E;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 30px 0;
+}
+
+.btn-pag {
+    padding: 8px 15px;
+    background-color: #1B4D3E;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.btn-pag:hover {
+    background-color: #2D5A4E;
+}
+
+#pageInfo {
+    color: #1B4D3E;
+    font-weight: bold;
+    padding: 0 15px;
+}
+
+.note-detail {
+    background-color: #f8faf7;
+    padding: 20px;
+    border-radius: 5px;
+    margin: 20px auto;
+    max-width: 800px;
+    width: 90%;
+}
+
+.note-detail h1 {
+    color: #1B4D3E;
+    border-bottom: 3px solid #1B4D3E;
+    padding-bottom: 10px;
+}
+
+.note-detail-meta {
+    background-color: #E8F4EF;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 15px 0;
+    border-left: 4px solid #1B4D3E;
+}
+
+.note-detail-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    margin: 15px 0;
+    line-height: 1.6;
+    color: #2D5A4E;
+}
+
+.note-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.note-actions a, .note-actions button {
+    padding: 10px 20px;
+    background-color: #1B4D3E;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.note-actions a:hover, .note-actions button:hover {
+    background-color: #2D5A4E;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="number"],
+textarea,
+select {
+    padding: 10px;
+    border: 2px solid #E8F4EF;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.3s, background-color 0.3s;
+    color: #2D5A4E;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #1B4D3E;
+    background-color: #f8faf7;
+    box-shadow: 0 0 5px rgba(27, 77, 62, 0.2);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+form p {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+form label {
+    color: #1B4D3E;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .nav {
+        flex-direction: column;
+        gap: 10px;
+        height: auto;
+        padding: 10px;
+    }
+    
+    .notes {
+        grid-template-columns: 1fr;
+        width: 95%;
+    }
+    
+    h1 {
+        font-size: 24px;
+    }
+    
+    .note-card {
+        height: auto;
+    }
 }

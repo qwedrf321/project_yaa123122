@@ -9,31 +9,38 @@
 </head>
 <body>
     <header class="header">
-        <nav class="nav">
-            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> |
-            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> |
-            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> |
-            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>|
-            <a class='nav_a' href="{% url 'login' %}">Логин</a>
+        <nav class ="nav">
+            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> 
+            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> 
+            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> 
+            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>
+            <a class='nav_a' href="{% url 'login' %}" style="margin-left: auto; margin-right: 20px;">Логин</a>
         </nav>
     </header>
-    <main class="main3">
-        <h1>Мои папки</h1>
+    <main class="main3 cont">
+        <h1>📁 Мои папки</h1>
         
-        <a href="{% url 'folders:create' %}">Создать новую папку</a>
+        <div class="cont1">
+            <a href="{% url 'folders:create' %}"><button>+ Создать новую папку</button></a>
+        </div>
         
         {% if folders %}
-            <ul>
-                {% for folder in folders %}
-                    <li>
-                        <a href="{% url 'folders:folder_notes' folder.id %}">
-                            {{ folder.name }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
+        <div style="width: 100%; max-width: 600px; margin: 20px auto;">
+            {% for folder in folders %}
+            <div style="background-color: white; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #1B4D3E; box-shadow: 0 2px 5px rgba(27, 77, 62, 0.1);">
+                <h3 style="margin: 0 0 10px 0;">
+                    <a href="{% url 'folders:folder_notes' folder.id %}">
+                        📂 {{ folder.name }}
+                    </a>
+                </h3>
+            </div>
+            {% endfor %}
+        </div>
         {% else %}
-            <p>У вас еще нет папок. <a href="{% url 'folders:create' %}">Создайте первую папку</a></p>
+        <div class="empty-message">
+            <p>У вас еще нет папок.</p>
+            <a href="{% url 'folders:create' %}"><button>Создайте первую папку</button></a>
+        </div>
         {% endif %}
     </main>
 </body>

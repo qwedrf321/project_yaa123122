@@ -4,6 +4,7 @@
 <head>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Заметки в папке {{ folder.name }}</title>
 </head>
 <body>
@@ -15,18 +16,41 @@
     </header>
 
     <main class="main3">
-        <h1>Заметки в папке: {{ folder.name }}</h1>
-        <ul>
-            {% for note in notes %}
-                <li>
-                    <strong>{{ note.title }}</strong><br>
-                    {{ note.content|truncatewords:10 }}
-                </li>
-            {% empty %}
-                <li>В этой папке пока нет заметок.</li>
-            {% endfor %}
-        </ul>
-        <a href="{% url 'folders:list' %}">Вернуться к списку папок</a>
+        <h1>📁 Заметки в папке: {{ folder.name }}</h1>
+        <div class="cont">
+            {% if notes %}
+            <div class="notes">
+                {% for note in notes %}
+                <div class="note-card">
+                    <div class="note-header">
+                        <h3>
+                            <a href="{% url 'notes:detail' note.id %}">
+                                {{ note.title }}
+                            </a>
+                        </h3>
+                    </div>
+                    <p class="note-content">{{ note.content|truncatewords:30 }}</p>
+                    <div class="note-meta">
+                        <div>📅 {{ note.created_at|date:"d.m.Y H:i" }}</div>
+                        {% if note.is_public %}
+                        <span class="note-badge">🌐 Публічна</span>
+                        {% else %}
+                        <span class="note-badge badge-private">🔒 Приватна</span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-message">
+                <p>В этой папке пока нет заметок.</p>
+                <a href="{% url 'notes:create' %}"><button>Создать заметку</button></a>
+            </div>
+            {% endif %}
+        </div>
+        <p style="text-align: center; margin-top: 30px;">
+            <a href="{% url 'folders:list' %}">← Вернуться к списку папок</a>
+        </p>
     </main>
 </body>
 </html>

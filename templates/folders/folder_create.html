@@ -9,21 +9,21 @@
 </head>
 <body>
     <header class="header">
-        <nav class="nav">
-            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> |
-            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> |
-            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> |
-            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>|
-            <a class='nav_a' href="{% url 'login' %}">Логин</a>
+        <nav class ="nav">
+            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> 
+            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> 
+            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> 
+            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>
+            <a class='nav_a' href="{% url 'login' %}" style="margin-left: auto; margin-right: 20px;">Логин</a>
         </nav>
     </header>
     <main class="main3">
         <h1>Создать папку</h1>
         
-        <form method="post">
+        <form method="post" class="form1" style="max-width: 400px;">
             {% csrf_token %}
-            <label for="name">Название папки:</label><br>
-            <input type="text" id="name" name="name" required><br><br>
+            <label for="name">Название папки:</label>
+            <input type="text" id="name" name="name" required>
             <button type="submit">Создать папку</button>
         </form>
         

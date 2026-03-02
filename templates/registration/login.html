@@ -1,20 +1,31 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вход</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-
 <body>
+    <header class="header">
+        <nav class ="nav">
+            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> 
+            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> 
+            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> 
+            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>
+            <a class='nav_a' href="{% url 'login' %}" style="margin-left: auto; margin-right: 20px;">Логин</a>
+        </nav>
+    </header>
     <main class="main_login">
-        <h2>Вход</h2>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Войти</button>
+        <div class="login_container">
+            <h2>Вход</h2>
+            <form method="post" class="login_form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="login_btn">Войти</button>
+            </form>
+        </div>
     </main>
-    </form>
 </body>
-
 </html>

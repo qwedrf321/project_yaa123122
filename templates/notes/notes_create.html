@@ -10,24 +10,25 @@
 <body>
     <header class="header">
         <nav class ="nav">
-            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> |
-            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> |
-            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> |
-            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>|
-            <a class='nav_a' href="{% url 'login' %}">Логин</a>
+            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> 
+            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> 
+            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> 
+            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>
+            <a class='nav_a' href="{% url 'login' %}" style="margin-left: auto; margin-right: 20px;">Логин</a>
         </nav>
     </header>
     <main class = 'main3'>
-        <h1>Создать заметку</h1>
-        <form method="post" class = 'form1'>
+        <h1>✏️ Создать заметку</h1>
+        <form method="post" class = 'form1' style="max-width: 500px;">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Создать</button>
+            <button type="submit">💾 Создать</button>
         </form>
         <div class = 'papasha'>
-            <p>У вас нет папок?</p> <a href="{% url 'folders:create' %}">Создайте папку</a>
+            <p>У вас нет папок?</p>
+            <a href="{% url 'folders:create' %}">Создайте папку</a>
         </div> 
-        <p><a href="{% url 'notes:notes_list' %}">Вернуться к списку заметок</a></p>
+        <p><a style="color: #1B4D3E;" href="{% url 'notes:notes_list' %}">← Вернуться к списку заметок</a></p>
     </main>
 </body>
 </html>

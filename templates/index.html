@@ -12,16 +12,16 @@
 <body>
     <header class="header">
         <nav class ="nav">
-            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> |
-            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> |
-            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> |
-            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>|
-            <a class='nav_a' href="{% url 'login' %}">Логин</a>
+            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> 
+            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> 
+            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> 
+            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>
+            <a class='nav_a' href="{% url 'login' %}" style="margin-left: auto; margin-right: 20px;">Логин</a>
         </nav>
     </header>
-    <main class = 'main_index'>
+    <main class = 'main_index cont' style="margin-bottom: auto;">
         <a href="https://youtu.be/RtudL2N8vsg?si=C5UJ7fcDWVey72gw">
-            <img class="img" src="https://i.pinimg.com/736x/e8/23/e0/e823e08eb26ea8cdb30f4174bebcebc7.jpg">
+            <img class="img" src="https://i.pinimg.com/736x/e8/23/e0/e823e08eb26ea8cdb30f4174bebcebc7.jpg" alt="Баннер">
         </a>
     </main>
     <script src="{% static 'js/script.js' %}"></script> 
