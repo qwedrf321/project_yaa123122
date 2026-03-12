@@ -1,8 +1,13 @@
+from django.shortcuts import redirect, redirect, render
+from django.contrib.auth import login
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 from .models import Note
-from .forms import NoteForm
+from .forms import NoteForm, UserRegistrationForm
 from django.db.models import Q
 
 class IndexView(TemplateView):
@@ -55,3 +60,14 @@ class NoteDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         note = self.get_object()
         return note.owner == self.request.user
+    
+class RegisterView(CreateView):
+    form_class = UserRegistrationForm
+    template_name = 'registration/registration.html'
+    success_url = reverse_lazy('notes:home')
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        messages.success(self.request, "Вы успешно зарегистрировались!")
+        return redirect(self.success_url)

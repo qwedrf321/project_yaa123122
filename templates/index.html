@@ -6,25 +6,58 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная</title>
+    <title>Главная — Мои Заметки</title>
 </head>
 
 <body>
     <header class="header">
-        <nav class ="nav">
-            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> 
-            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> 
-            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> 
-            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>
-            <a class='nav_a' href="{% url 'login' %}" style="margin-left: auto; margin-right: 20px;">Логин</a>
+        <nav class="nav">
+            <a class='nav_a' href="{% url 'notes:home' %}">Главная</a>
+            <a class='nav_a' href="{% url 'notes:notes_list' %}">Список заметок</a>
+            <a class='nav_a' href="{% url 'notes:create' %}">Создать заметку</a>
+            <a class='nav_a' href="{% url 'folders:list' %}">Папки</a>
+
+            <div style="margin-left: auto; display: flex;">
+                <a class='nav_a' href="{% url 'login' %}" style="margin-right: 20px;">Логин</a>
+                <a class='nav_a' href="{% url 'registration' %}" style="margin-right: 20px;">Регистрация</a>
+            </div>
         </nav>
     </header>
-    <main class = 'main_index cont' style="margin-bottom: auto;">
-        <a href="https://youtu.be/RtudL2N8vsg?si=C5UJ7fcDWVey72gw">
-            <img class="img" src="https://i.pinimg.com/736x/e8/23/e0/e823e08eb26ea8cdb30f4174bebcebc7.jpg" alt="Баннер">
-        </a>
+
+    <main class='main_index cont' style="margin-bottom: auto; padding: 40px 20px; text-align: center;">
+
+        <section class="hero-section">
+            <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Добро пожаловать в менеджер заметок!</h1>
+            <p style="font-size: 1.2rem; color: #555; max-width: 800px; margin: 0 auto 30px;">
+                Ваше идеальное пространство для хранения идей, планов и важных мыслей.
+                Организуйте свою жизнь легко и эффективно.
+            </p>
+
+            <a href="{% url 'notes:notes_list' %}" class="btn-primary"
+                style="display: inline-block; padding: 12px 24px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin-bottom: 40px;">
+                Начать писать
+            </a>
+        </section>
+
+        <section class="features"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px;">
+            <div class="feature-card">
+                <h3>📝 Быстрые записи</h3>
+                <p>Фиксируйте идеи моментально, пока они не улетели.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📁 Порядок в папках</h3>
+                <p>Группируйте заметки по темам, проектам или категориям.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔒 Надежное хранение</h3>
+                <p>Ваши мысли доступны только вам в любое время и на любом устройстве.</p>
+            </div>
+        </section>
+
     </main>
-    <script src="{% static 'js/script.js' %}"></script> 
+
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 
 </html>

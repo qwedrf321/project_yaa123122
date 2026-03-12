@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a class="nav_a" href="{% url 'notes:home' %}">Главная</a>
+            <a class="nav_a" href="{% url 'notes:notes_list' %}">Список заметок</a>
+            <a class="nav_a" href="{% url 'notes:create' %}">Создать заметку</a>
+            <a class="nav_a" href="{% url 'folders:list' %}">Папки</a>
+            <div style="margin-left: auto; display: flex;">
+                <a class='nav_a' href="{% url 'login' %}" style="margin-right: 20px;">Логин</a>
+                <a class='nav_a' href="{% url 'registration' %}" style="margin-right: 20px;">Регистрация</a>
+            </div>
+        </nav>
+    </header>
+    <main class="main_login">
+        <div class="login_container">
+            <h2>Регистрация</h2>
+            <form method="post" class="login_form">
+                {% csrf_token %}
+                {% if form.errors %}
+                <div style="color: red; margin-bottom: 10px; font-size: 0.9em;">
+                    {{ form.errors }}
+                </div>
+                {% endif %}
+                {{ form.as_p }}
+                <button type="submit" class="login_btn">Зарегистрироваться</button>
+            </form>
+            <p style="text-align: center; margin-top: 10px;">
+                Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>
+            </p>
+        </div>
+    </main>
+</body>
+
+</html>

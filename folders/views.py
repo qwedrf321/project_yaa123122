@@ -1,26 +1,38 @@
-from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib.auth.decorators import login_required
-from notes.models import Note
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Folder
-
-@login_required
-def create_folder(request):
-    if request.method == 'POST':
-        folder_name = request.POST.get('name', '')
-        if folder_name.strip():
-            Folder.objects.create(name=folder_name, owner=request.user)
-        return redirect('folders:list')
-    return render(request, 'folders/folder_create.html')
+from django.views.generic import ListView
+from django.views.generic import DetailView
+from notes.models import Note
 
 
-@login_required
-def folder_list(request):
-    folders = request.user.folders.all()
-    return render(request, 'folders/folder_list.html', {'folders': folders})
+class FolderCreateView(LoginRequiredMixin, CreateView):
+    model = Folder
+    fields = ['name']
+    template_name = 'folders/folder_create.html'
+    success_url = reverse_lazy('folders:list')
 
-# folders/views.py
-def folder_notes(request, folder_id):
-    folder = get_object_or_404(Folder, id=folder_id)
-    # Фильтруем заметки, у которых поле folder совпадает с текущей папкой
-    notes = Note.objects.filter(folder=folder) 
-    return render(request, 'folders/folder_notes.html', {'folder': folder, 'notes': notes})
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+
+class FolderListView(LoginRequiredMixin, ListView):
+    model = Folder
+    template_name = 'folders/folder_list.html'
+    context_object_name = 'folders'
+
+    def get_queryset(self):
+        return self.request.user.folders.all()
+
+class FolderNotesView(LoginRequiredMixin, DetailView):
+    model = Folder
+    template_name = 'folders/folder_notes.html'
+    context_object_name = 'folder'
+    pk_url_kwarg = 'folder_id'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['notes'] = Note.objects.filter(folder=self.object)
+        return context

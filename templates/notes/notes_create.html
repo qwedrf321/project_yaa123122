@@ -1,34 +1,40 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Создать заметку</title>
 </head>
+
 <body>
     <header class="header">
-        <nav class ="nav">
-            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> 
-            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> 
-            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> 
-            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>
-            <a class='nav_a' href="{% url 'login' %}" style="margin-left: auto; margin-right: 20px;">Логин</a>
+        <nav class="nav">
+            <a class='nav_a' href="{% url 'notes:home' %}">Главная</a>
+            <a class='nav_a' href="{% url 'notes:notes_list' %}">Список заметок</a>
+            <a class='nav_a' href="{% url 'notes:create' %}">Создать заметку</a>
+            <a class='nav_a' href="{% url 'folders:list' %}">Папки</a>
+            <div style="margin-left: auto; display: flex;">
+                <a class='nav_a' href="{% url 'login' %}" style="margin-right: 20px;">Логин</a>
+                <a class='nav_a' href="{% url 'registration' %}" style="margin-right: 20px;">Регистрация</a>
+            </div>
         </nav>
     </header>
-    <main class = 'main3'>
+    <main class='main3'>
         <h1>✏️ Создать заметку</h1>
-        <form method="post" class = 'form1' style="max-width: 500px;">
+        <form method="post" class='form1' style="max-width: 500px;">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">💾 Создать</button>
         </form>
-        <div class = 'papasha'>
+        <div class='papasha'>
             <p>У вас нет папок?</p>
             <a href="{% url 'folders:create' %}">Создайте папку</a>
-        </div> 
+        </div>
         <p><a style="color: #1B4D3E;" href="{% url 'notes:notes_list' %}">← Вернуться к списку заметок</a></p>
     </main>
 </body>
+
 </html>

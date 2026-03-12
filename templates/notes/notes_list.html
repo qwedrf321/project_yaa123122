@@ -11,12 +11,15 @@
 
 <body>
     <header class="header">
-        <nav class ="nav">
-            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> 
-            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> 
-            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> 
-            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>
-            <a class='nav_a' href="{% url 'login' %}" style="margin-left: auto; margin-right: 20px;">Логин</a>
+        <nav class="nav">
+            <a class='nav_a' href="{% url 'notes:home' %}">Главная</a>
+            <a class='nav_a' href="{% url 'notes:notes_list' %}">Список заметок</a>
+            <a class='nav_a' href="{% url 'notes:create' %}">Создать заметку</a>
+            <a class='nav_a' href="{% url 'folders:list' %}">Папки</a>
+            <div style="margin-left: auto; display: flex;">
+                <a class='nav_a' href="{% url 'login' %}" style="margin-right: 20px;">Логин</a>
+                <a class='nav_a' href="{% url 'registration' %}" style="margin-right: 20px;">Регистрация</a>
+            </div>
         </nav>
     </header>
     <div class="cont">

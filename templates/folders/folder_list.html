@@ -1,38 +1,58 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Папки</title>
 </head>
+
 <body>
     <header class="header">
-        <nav class ="nav">
-            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> 
-            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> 
-            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> 
-            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>
-            <a class='nav_a' href="{% url 'login' %}" style="margin-left: auto; margin-right: 20px;">Логин</a>
+        <nav class="nav">
+            <a class='nav_a' href="{% url 'notes:home' %}">Главная</a>
+            <a class='nav_a' href="{% url 'notes:notes_list' %}">Список заметок</a>
+            <a class='nav_a' href="{% url 'notes:create' %}">Создать заметку</a>
+            <a class='nav_a' href="{% url 'folders:list' %}">Папки</a>
+            <div style="margin-left: auto; display: flex;">
+                <a class='nav_a' href="{% url 'login' %}" style="margin-right: 20px;">Логин</a>
+                <a class='nav_a' href="{% url 'registration' %}" style="margin-right: 20px;">Регистрация</a>
+            </div>
         </nav>
     </header>
+
     <main class="main3 cont">
         <h1>📁 Мои папки</h1>
-        
+
         <div class="cont1">
             <a href="{% url 'folders:create' %}"><button>+ Создать новую папку</button></a>
         </div>
-        
+
         {% if folders %}
         <div style="width: 100%; max-width: 600px; margin: 20px auto;">
             {% for folder in folders %}
-            <div style="background-color: white; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #1B4D3E; box-shadow: 0 2px 5px rgba(27, 77, 62, 0.1);">
-                <h3 style="margin: 0 0 10px 0;">
-                    <a href="{% url 'folders:folder_notes' folder.id %}">
-                        📂 {{ folder.name }}
-                    </a>
-                </h3>
+            <div class="folder-wrapper" style="position: relative; margin: 10px 0;">
+                <div class="folder-card"
+                    style="background-color: white; padding: 15px; border-radius: 5px; border-left: 4px solid #1B4D3E; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer;">
+                    <h3 style="margin: 0;">
+                        <a href="{% url 'folders:folder_notes' folder.id %}">📂 {{ folder.name }}</a>
+                    </h3>
+                </div>
+
+                <div class="notes-preview"
+                    style="display: none; position: absolute; top: 100%; left: 0; z-index: 100; background: #f9f9f9; border: 1px solid #ccc; padding: 10px; border-radius: 8px; width: 250px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    <strong
+                        style="display: block; margin-bottom: 5px; font-size: 0.9rem; color: #1B4D3E;">Заметки:</strong>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.85rem;">
+                        {% for note in folder.notes.all %}
+                        <li style="padding: 3px 0; border-bottom: 1px solid #eee;">• {{ note.title }}</li>
+                        {% empty %}
+                        <li style="color: #888;">Пусто</li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
             {% endfor %}
         </div>
@@ -43,5 +63,32 @@
         </div>
         {% endif %}
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const folders = document.querySelectorAll('.folder-card');
+
+            folders.forEach(card => {
+                const preview = card.nextElementSibling; // Это .notes-preview
+
+                card.addEventListener('mouseenter', () => {
+                    preview.style.display = 'block';
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    setTimeout(() => {
+                        if (!preview.matches(':hover') && !card.matches(':hover')) {
+                            preview.style.display = 'none';
+                        }
+                    }, 100);
+                });
+
+                preview.addEventListener('mouseleave', () => {
+                    preview.style.display = 'none';
+                });
+            });
+        });
+    </script>
 </body>
+
 </html>

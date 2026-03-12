@@ -11,12 +11,15 @@
 
 <body>
     <header class="header">
-        <nav class ="nav">
-            <a class = 'nav_a' href="{% url 'notes:home' %}">Главная</a> 
-            <a class = 'nav_a'href="{% url 'notes:notes_list' %}">Список заметок</a> 
-            <a class = 'nav_a' href="{% url 'notes:create' %}">Создать заметку</a> 
-            <a class = 'nav_a' href="{% url 'folders:list' %}">Папки</a>
-            <a class='nav_a' href="{% url 'login' %}" style="margin-left: auto; margin-right: 20px;">Логин</a>
+        <nav class="nav">
+            <a class='nav_a' href="{% url 'notes:home' %}">Главная</a>
+            <a class='nav_a' href="{% url 'notes:notes_list' %}">Список заметок</a>
+            <a class='nav_a' href="{% url 'notes:create' %}">Создать заметку</a>
+            <a class='nav_a' href="{% url 'folders:list' %}">Папки</a>
+            <div style="margin-left: auto; display: flex;">
+                <a class='nav_a' href="{% url 'login' %}" style="margin-right: 20px;">Логин</a>
+                <a class='nav_a' href="{% url 'registration' %}" style="margin-right: 20px;">Регистрация</a>
+            </div>
         </nav>
     </header>
     <main class='main_detail cont'>
@@ -26,7 +29,7 @@
                 <p><strong>📁 Папка:</strong> {{ note.folder.name }}</p>
                 <p><strong>👤 Автор:</strong> {{ note.owner.username }}</p>
                 <p><strong>📅 Создано:</strong> {{ note.created_at|date:"d.m.Y H:i" }}</p>
-                <p><strong>Статус:</strong> 
+                <p><strong>Статус:</strong>
                     {% if note.is_public %}
                     <span class="note-badge" style="display: inline-block;">🌐 Публичная</span>
                     {% else %}
@@ -41,7 +44,8 @@
                 <a href="{% url 'notes:notes_list' %}">← Назад к списку</a>
                 <form action="{% url 'notes:delete_note' note.id %}" method="post" style="display: inline;">
                     {% csrf_token %}
-                    <button type="submit" style="background-color: #8B3A3A;" onclick="return confirm('Вы уверены, что хотите удалить эту заметку?')">🗑️ Удалить</button>
+                    <button type="submit" style="background-color: #8B3A3A;"
+                        onclick="return confirm('Вы уверены, что хотите удалить эту заметку?')">🗑️ Удалить</button>
                 </form>
             </div>
         </div>
