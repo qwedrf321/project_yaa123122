@@ -22,18 +22,26 @@
             </div>
         </nav>
     </header>
+
     <main class='main3'>
         <h1>✏️ Создать заметку</h1>
-        <form method="post" class='form1' style="max-width: 500px;">
+
+        <form method="post" enctype="multipart/form-data" class='form1' style="max-width: 500px;">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">💾 Создать</button>
         </form>
+
         <div class='papasha'>
             <p>У вас нет папок?</p>
             <a href="{% url 'folders:create' %}">Создайте папку</a>
         </div>
-        <p><a style="color: #1B4D3E;" href="{% url 'notes:notes_list' %}">← Вернуться к списку заметок</a></p>
+
+        <p>
+            <a style="color: #1B4D3E;" href="{% url 'notes:notes_list' %}">
+                ← Вернуться к списку заметок
+            </a>
+        </p>
     </main>
 </body>
 

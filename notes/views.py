@@ -1,14 +1,12 @@
-from django.shortcuts import redirect, redirect, render
+from django.shortcuts import redirect
 from django.contrib.auth import login
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
 from .models import Note
 from .forms import NoteForm, UserRegistrationForm
-from django.db.models import Q
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -20,34 +18,40 @@ class NotesListView(ListView):
     ordering = ['-created_at']
 
     def get_queryset(self):
-        if self.request.user.is_authenticated:
-            return Note.objects.filter(
-                Q(is_public=True) | Q(owner=self.request.user)
-            ).order_by('-created_at')
-        else:
-            return Note.objects.filter(is_public=True).order_by('-created_at')
+        user = self.request.user
 
-class NoteDetailView(UserPassesTestMixin, DetailView):
+        if user.is_authenticated:
+            return Note.objects.filter(
+                Q(is_public=True) | Q(owner=user)
+            ).order_by('-created_at')
+
+        return Note.objects.filter(is_public=True).order_by('-created_at')
+
+class NoteDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Note
     template_name = 'notes/note_detail.html'
     context_object_name = 'note'
+    login_url = '/login/'
 
     def test_func(self):
         note = self.get_object()
-        if note.is_public:
-            return True
-        return note.owner == self.request.user
+        return note.is_public or note.owner == self.request.user
 
 class NoteCreateView(LoginRequiredMixin, CreateView):
     model = Note
     form_class = NoteForm
     template_name = 'notes/notes_create.html'
     success_url = reverse_lazy('notes:notes_list')
+    login_url = '/login/'
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
+        kwargs['user'] = self.request.user 
         return kwargs
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -56,11 +60,11 @@ class NoteCreateView(LoginRequiredMixin, CreateView):
 class NoteDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Note
     success_url = reverse_lazy('notes:notes_list')
+    login_url = '/login/'
 
     def test_func(self):
-        note = self.get_object()
-        return note.owner == self.request.user
-    
+        return self.get_object().owner == self.request.user
+
 class RegisterView(CreateView):
     form_class = UserRegistrationForm
     template_name = 'registration/registration.html'

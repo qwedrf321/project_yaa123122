@@ -38,7 +38,14 @@
                 </p>
             </div>
             <div class="note-detail-content">
-                {{ note.content }}
+                {{ note.content|linebreaks }}
+
+                {% if note.file %}
+                <div class="note-file" style="margin-top: 20px;">
+                    <strong>📎 Файл:</strong>
+                    <a href="{{ note.file.url }}" target="_blank">{{ note.file.name|truncatechars:50 }}</a>
+                </div>
+                {% endif %}
             </div>
             <div class="note-actions">
                 <a href="{% url 'notes:notes_list' %}">← Назад к списку</a>
